@@ -158,7 +158,7 @@ export class VideoRTC extends HTMLElement {
     play() {
         this.video.play().catch(er => {
             if (er.name === "NotAllowedError" && !this.video.muted) {
-                this.video.muted = true;
+                this.video.muted = false;
                 this.video.play().catch(() => console.debug);
             }
         });

@@ -14,6 +14,19 @@ class VideoStream extends VideoRTC {
     }
 
     /**
+     * Play video. Support automute when autoplay blocked.
+     * https://developer.chrome.com/blog/autoplay/
+     */
+    play() {
+        this.video.play().catch(er => {
+            if (er.name === "NotAllowedError" && !this.video.muted) {
+                this.video.muted = false;
+                this.video.play().catch(() => console.debug);
+            }
+        });
+    }
+    
+    /**
      * Custom GUI
      */
     oninit() {
